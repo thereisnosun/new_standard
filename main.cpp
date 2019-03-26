@@ -3,6 +3,7 @@
 #include <variant>
 #include <tuple>
 #include <map>
+#include <memory>
 
 auto make_tuple(int a, std::string&& str)
 {
@@ -11,9 +12,39 @@ auto make_tuple(int a, std::string&& str)
 
 void structBinding();
 
+template<typename T>
+auto getValue(T t)
+{
+    if constexpr (std::is_pointer_v<T>)
+        return *t;
+    else
+        return t;
+}
+
+template<typename... Args>
+auto sum(Args... args)
+{
+    return(args + ...);
+}
+
+template<typename... Args>
+auto multiply(Args... args)
+{
+    return(args * ...);
+}
+
 int main(int argc, char* argv[])
 {
     std::cout << "Experiments with C++17\n";
+
+    std::cout << sum(1, 2, 3, 4, 5) << std::endl;
+    std::cout << multiply(1, 2, 3, 4, 5) << std::endl;
+    auto pointer = std::make_unique<int>(5);
+    int value = 5;
+    std::cout << getValue(pointer.get()) << std::endl;
+    std::cout << getValue(value) << std::endl;
+
+
     structBinding();
 
     return 0;
