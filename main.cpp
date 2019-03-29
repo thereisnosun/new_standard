@@ -5,6 +5,8 @@
 #include <map>
 #include <memory>
 
+#include "string_view_test.h"
+
 auto make_tuple(int a, std::string&& str)
 {
     return std::tuple(a, str);
@@ -33,6 +35,8 @@ auto multiply(Args... args)
     return(args * ...);
 }
 
+
+
 int main(int argc, char* argv[])
 {
     std::cout << "Experiments with C++17\n";
@@ -44,6 +48,8 @@ int main(int argc, char* argv[])
     std::cout << getValue(pointer.get()) << std::endl;
     std::cout << getValue(value) << std::endl;
 
+    string_view_test stringViewTest;
+    stringViewTest.test("test.txt");
 
     structBinding();
 
